@@ -1,8 +1,15 @@
 package com.example.demo.student;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+@Entity // This one is for Hibernate
+@Table // This one is for the Table in our Database
 public class Student {
+    // Map the Student table into our Database:
+    @Id
+    @SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
     private Long id;
     private String name;
     private String email;
