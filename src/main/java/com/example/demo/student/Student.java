@@ -1,8 +1,10 @@
 package com.example.demo.student;
 
-import jakarta.persistence.*;
+import jakarta.persistence.*; // use persistence because if we changed from using hibernate to something else, this will still work
 
 import java.time.LocalDate;
+import java.time.Period;
+
 @Entity // This one is for Hibernate
 @Table // This one is for the Table in our Database
 public class Student {
@@ -14,25 +16,24 @@ public class Student {
     private String name;
     private String email;
     private LocalDate dob;
+    @Transient // no need for this field to be a column in our database. Will be calculated first.
     private Integer age;
 
     public Student() { // Generate empty constructor (with alt + *)
 
     }
     // This is the model:
-    public Student(Long id, String name, String email, LocalDate dob, Integer age) { // Generate constructor with all properties
+    public Student(Long id, String name, String email, LocalDate dob) { // Generate constructor with all properties
         this.id = id;
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
-    public Student(String name, String email, LocalDate dob, Integer age) { // Generate constructor without id because database provides it
+    public Student(String name, String email, LocalDate dob) { // Generate constructor without id because database provides it
         this.name = name;
         this.email = email;
         this.dob = dob;
-        this.age = age;
     }
 
     public Long getId() {
@@ -68,7 +69,7 @@ public class Student {
     }
 
     public Integer getAge() {
-        return age;
+        return Period.between(this.dob, LocalDate.now()).getYears(); // gets age of student from dob
     }
 
     public void setAge(Integer age) {
