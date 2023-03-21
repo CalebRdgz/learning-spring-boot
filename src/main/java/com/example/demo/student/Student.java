@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Student {
     // Map the Student table into our Database:
     @Id
-    @SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "student_sequence", sequenceName = "student_sequence", allocationSize = 1) // allocationSize = 1 -> Hibernate: create sequence student_sequence start with 1 increment by 1
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_sequence")
     private Long id;
     private String name;
@@ -19,7 +19,7 @@ public class Student {
     public Student() { // Generate empty constructor (with alt + *)
 
     }
-
+    // This is the model:
     public Student(Long id, String name, String email, LocalDate dob, Integer age) { // Generate constructor with all properties
         this.id = id;
         this.name = name;
